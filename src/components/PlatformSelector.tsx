@@ -7,15 +7,16 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
+
 import usePlatforms, { Platform } from "../hooks/usePlatfroms";
 
-const PlatformSelector = () => {
-  const { data, error, isLoading } = usePlatforms();
+interface Props {
+  selectedPlatform: Platform | null;
+  onSelectedPlatform: (selectedPlatform: Platform) => void;
+}
 
-  const [platformSelected, setSelectedPlatform] = useState<Platform | null>(
-    null
-  );
+const PlatformSelector = ({ selectedPlatform, onSelectedPlatform }: Props) => {
+  const { data, error, isLoading } = usePlatforms();
 
   if (error) return null;
 
@@ -23,13 +24,13 @@ const PlatformSelector = () => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-        {platformSelected ? platformSelected.name : "Platforms"}
+        {selectedPlatform ? selectedPlatform.name : "Platforms"}
       </MenuButton>
       <MenuList>
         {data.map((platform) => (
           <MenuItem
             key={platform.id}
-            onClick={() => setSelectedPlatform(platform)}
+            onClick={() => onSelectedPlatform(platform)}
           >
             {platform.name}
           </MenuItem>
