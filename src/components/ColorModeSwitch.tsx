@@ -12,7 +12,7 @@ const ColorModeSwitch = () => {
           colorMode == "light" ? setColorMode("dark") : setColorMode("light")
         }
       />
-      <Text>Dark mode</Text>
+      <Text whiteSpace={"nowrap"}>Dark mode</Text>
     </HStack>
   );
 };
